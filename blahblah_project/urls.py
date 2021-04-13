@@ -13,8 +13,8 @@ urlpatterns = [
     # path('<int:pk>/', views.posting, name='posting'),
     path('video_feed', views.video_feed, name='video_feed'),
     path('video_image', views.video_image, name='video_image'),
-    path('image/', views.image, name='image'),
-    path('blur/', views.blur, name='blur'),
+    path('decoration/', views.decoration, name='decoration'),
+    path('blurring/', views.blurring, name='blurring'),
 ]
 
 # 이미지 URL 설정

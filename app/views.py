@@ -12,18 +12,13 @@ def index(request):
     # 모든 Post를 가져와 postlist에 저장
     postlist = Post.objects.all()
     # blog.html 페이지를 열 때, 모든 Post인 postlist도 같이 가져옴 
-    return render(request, 'blog.html', {'postlist':postlist})
+    return render(request, 'blog.html')
 
-# blog의 게시글(posting)을 부르는 posting 함수
-def posting(request, pk):
-    # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
-    post = Post.objects.get(pk=pk)
-    # posting.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
-    
-    if pk == 1:
-        return render(request,'blurring.html', {'post':post})
-    else :
-        return render(request,'decoration.html', {'post':post})
+def blurring(request):
+    return render(request,'blurring.html')
+
+def decoration(request):
+    return render(request,'decoration.html') 
 
 def gen(camera):
     while True:
@@ -36,8 +31,8 @@ def video_feed(request):
 def video_image(request):
 	return StreamingHttpResponse(gen(VideoCameraImage()),content_type='multipart/x-mixed-replace; boundary=frame')
 
-def blur(request):
-    return render(request,'blur.html')
+def blurring(request):
+    return render(request,'blurring.html')
 
-def image(request):
-    return render(request,'image.html')
+def decoration(request):
+    return render(request,'decoration.html')
