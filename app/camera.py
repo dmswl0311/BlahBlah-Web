@@ -12,15 +12,17 @@ from django.conf import settings
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from pathlib import Path
 
+# 모델 로드
 model = load_model(os.path.join(settings.BASE_DIR,'face_detector/saved_model.h5'))
-# 이미지 파일 경로, 바꿔야됨
+
+# 이모지 붙일 때, 이미지 경로
 src1=cv2.imread(os.path.join(settings.BASE_DIR,'img/smile.png'),-1)
 src2=cv2.imread(os.path.join(settings.BASE_DIR,'img/sad.png'),-1)
 src3=cv2.imread(os.path.join(settings.BASE_DIR,'img/birthday.png'),-1)
 src4=cv2.imread(os.path.join(settings.BASE_DIR,'img/crown.png'),-1)
-flag=0
 
-def transparent_overlay(src ,overlay ,pos=(0,0) ,scale=1,flag=0):
+# smile, sad 이모지 붙이는 함수 ===================================================
+def transparent_overlay(src ,overlay ,pos=(0,0) ,scale=1):
     """
     :param src: Input Color Background Image
     :param overlay: transparent Image (BGRA)
@@ -32,13 +34,8 @@ def transparent_overlay(src ,overlay ,pos=(0,0) ,scale=1,flag=0):
     overlay = cv2.resize(overlay, (0, 0), fx=scale, fy=scale)
     h, w, _ = overlay.shape  # Size of foreground
     rows, cols, _ = src.shape  # Size of background Image
-    print(flag)
-    if flag==1: #birthday
-        y, x = pos[0], pos[1]-(h+2) 
-    elif flag==2:
-        y, x = pos[0], pos[1]-h-2
-    else:
-        y, x = pos[0], pos[1]   
+    
+    y, x = pos[0], pos[1]   
 
     #loop over all pixels and apply the blending equation
     for i in range(h):
@@ -49,6 +46,31 @@ def transparent_overlay(src ,overlay ,pos=(0,0) ,scale=1,flag=0):
             src[x + i][y + j] = alpha*overlay[i][j][:3] + (1 - alpha) * src[x + i][y + j]
     return src
 
+# birthday, crown이모지 붙이는 함수 ===================================================
+def transparent_overlay_birthday(src ,overlay ,pos=(0,0) ,scale=1):
+    """
+    :param src: Input Color Background Image
+    :param overlay: transparent Image (BGRA)
+    :param pos:  position where the image to be blit.
+    :param scale : scale factor of transparent image.
+    :return: Resultant Image
+    """
+
+    overlay = cv2.resize(overlay, (0, 0), fx=scale, fy=scale)
+    h, w, _ = overlay.shape  
+    rows, cols, _ = src.shape  
+
+    y, x = pos[0], pos[1]-(h+2) 
+
+    for i in range(h):
+        for j in range(w):
+            if x + i >= rows or y + j >= cols:
+                continue
+            alpha = float(overlay[i][j][3] / 255.0) 
+            src[x + i][y + j] = alpha*overlay[i][j][:3] + (1 - alpha) * src[x + i][y + j]
+    return src
+
+# 블러 처리 클래스 ===================================================
 class VideoCamera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
@@ -92,6 +114,7 @@ class VideoCamera(object):
         ret,jpeg=cv2.imencode('.jpg',frame)
         return jpeg.tobytes()
 
+# smile 이모지 처리 클래스 ===================================================
 class VideoCameraImage(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
@@ -100,7 +123,6 @@ class VideoCameraImage(object):
         self.video.release()
 
     def get_frame(self):
-        flag=0
         status, frame = self.video.read()
 
         face, confidence = cv.detect_face(frame)
@@ -132,11 +154,12 @@ class VideoCameraImage(object):
                     roi = frame[startY:endY, startX:endX] # 관심영역 지정
                     frame[startY:endY, startX:endX] = roi 
                     src = cv2.resize(src1, dsize=(endX - startX,(endY - startY)), interpolation=cv2.INTER_AREA)
-                    frame = transparent_overlay(frame, src, (startX, startY),flag)
+                    frame = transparent_overlay(frame, src, (startX, startY))
                     
         ret,jpeg=cv2.imencode('.jpg',frame)
         return jpeg.tobytes()
 
+# sad 이모지 처리 클래스 ===================================================
 class VideoCameraImage_Sad(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
@@ -145,11 +168,9 @@ class VideoCameraImage_Sad(object):
         self.video.release()
 
     def get_frame(self):
-        flag=0
         status, frame = self.video.read()
 
         face, confidence = cv.detect_face(frame)
-        # loop through detected faces
         for idx, f in enumerate(face):
             
             (startX, startY) = f[0], f[1]
@@ -177,11 +198,12 @@ class VideoCameraImage_Sad(object):
                     roi = frame[startY:endY, startX:endX] # 관심영역 지정
                     frame[startY:endY, startX:endX] = roi 
                     src = cv2.resize(src2, dsize=(endX - startX,(endY - startY)), interpolation=cv2.INTER_AREA)
-                    frame = transparent_overlay(frame, src, (startX, startY),flag)
+                    frame = transparent_overlay(frame, src, (startX, startY))
                     
         ret,jpeg=cv2.imencode('.jpg',frame)
         return jpeg.tobytes()
 
+# birthday 이모지 처리 클래스 ===================================================
 class VideoCameraImage_Birthday(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
@@ -193,7 +215,7 @@ class VideoCameraImage_Birthday(object):
         status, frame = self.video.read()
 
         face, confidence = cv.detect_face(frame)
-        # loop through detected faces
+
         for idx, f in enumerate(face):
             
             (startX, startY) = f[0], f[1]
@@ -218,15 +240,15 @@ class VideoCameraImage_Birthday(object):
                     cv2.putText(frame, text, (startX,Y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
                     
                 else: # 논타켓 판별
-                    flag=1
                     roi = frame[startY:endY, startX:endX] # 관심영역 지정
                     frame[startY:endY, startX:endX] = roi 
                     src = cv2.resize(src3, dsize=(endX - startX,(endY - startY)), interpolation=cv2.INTER_AREA)
-                    frame = transparent_overlay(frame, src, (startX, startY),flag)
+                    frame = transparent_overlay_birthday(frame, src, (startX, startY))
                     
         ret,jpeg=cv2.imencode('.jpg',frame)
         return jpeg.tobytes()
 
+# crown 이모지 처리 클래스 ===================================================
 class VideoCameraImage_Crown(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
@@ -238,7 +260,7 @@ class VideoCameraImage_Crown(object):
         status, frame = self.video.read()
 
         face, confidence = cv.detect_face(frame)
-        # loop through detected faces
+
         for idx, f in enumerate(face):
             
             (startX, startY) = f[0], f[1]
@@ -263,11 +285,10 @@ class VideoCameraImage_Crown(object):
                     cv2.putText(frame, text, (startX,Y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
                     
                 else: # 논타켓 판별
-                    flag=2
                     roi = frame[startY:endY, startX:endX] # 관심영역 지정
                     frame[startY:endY, startX:endX] = roi 
                     src = cv2.resize(src4, dsize=(endX - startX,(endY - startY)), interpolation=cv2.INTER_AREA)
-                    frame = transparent_overlay(frame, src, (startX, startY),flag)
+                    frame = transparent_overlay_birthday(frame, src, (startX, startY))
                     
         ret,jpeg=cv2.imencode('.jpg',frame)
         return jpeg.tobytes()
