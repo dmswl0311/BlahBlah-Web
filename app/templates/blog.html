@@ -208,6 +208,14 @@
             />
           </div>
         </a>
+        <form action="{% url 'decoration' %}" method="get">
+          원하는 이모지 선택<br><br>
+          <button type="submit" name="image_url" value="img/smile.png">기쁨</button>
+          <button type="submit" name="image_url" value="img/sad.png">슬픔</button>
+          <button type="submit" name="image_url" value="img/heart.png">하트</button>
+          <button type="submit" name="image_url" value="img/birthday.png">생일</button>
+          <button type="submit" name="image_url" value="img/crown.png">왕관</button>
+      </form>
         <h5><a href="{% url 'decoration' %}">Face tracking and decoration</a></h5>
       </div>
 
