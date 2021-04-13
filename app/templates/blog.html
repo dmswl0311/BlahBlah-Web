@@ -82,12 +82,26 @@
 
       .image-wrapper {
         background: white;
+
       }
       .image-wrapper img {
         mix-blend-mode: luminosity;
       }
       .image-wrapper img:hover {
         mix-blend-mode: normal;
+      }
+
+      #button-box {
+        height: 80%;
+      }
+
+      .image_button {
+        mix-blend-mode: luminosity;
+      }
+
+      .image_button:hover {
+        mix-blend-mode: normal;
+        cursor:pointer;
       }
 
       .section_bg_color {
@@ -184,41 +198,91 @@
         <h5><a href="{% url 'blurring' %}">Face tracking and blurring</a></h5>
       </div>
 
-      
       <div
         doz_type="grid"
         doz_grid="4"
         class="col-dz"
-        style="display: inline-block; text-align: center"
+        style="display: inline-block; width: 400px; text-align: center"
       >
-        <a href="{% url 'decoration' %}">
-          <div class="image-wrapper">
-            <img
-              id="img_w20210411dd9067df91e5d"
-              src="/static/img/decoration.png"
-              style="
-                visibility: visible;
-                display: block;
-                width: auto;
-                margin: auto;
-                height: 80%;
-              "
-              class="org_image"
-              alt=""
-            />
-          </div>
-        </a>
-        <form action="{% url 'decoration' %}" method="get">
-          원하는 이모지 선택<br><br>
-          <button type="submit" name="image_url" value="1">기쁨</button>
-          <button type="submit" name="image_url" value="2">슬픔</button>
-          <button type="submit" name="image_url" value="3">생일</button>
-          <button type="submit" name="image_url" value="4">왕관</button>
-      </form>
-        <h5><a href="{% url 'decoration' %}">Face tracking and decoration</a></h5>
+        <div class="image-wrapper" id="button-box">
+          <form
+            class="image-wrapper"
+            action="{% url 'decoration' %}"
+            style="height: 100%"
+            method="get"
+          >
+            <div style="display: block">
+              <button
+                type="submit"
+                name="image_url"
+                class="image_button"
+                style="
+                  background: url(/static/img/smile.png);
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  border: none;
+                  height: 50%;
+                  width: 50%;
+                  background-position: 50% 50%;
+                "
+                value="1"
+              >
+              <button
+                type="submit"
+                name="image_url"
+                class="image_button"
+                style="
+                  background: url(/static/img/sad.png);
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  border: none;
+                  height: 50%;
+                  width: 50%;
+                  background-position: 50% 50%;
+                "
+                value="2"
+              >
+            </div>
+
+            <div style="display: block">
+              <button
+                type="submit"
+                name="image_url"
+                class="image_button"
+                style="
+                  background: url(/static/img/birthday.png);
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  border: none;
+                  height: 50%;
+                  width: 50%;
+                  background-position: 50% 50%;
+                "
+                value="3"
+              >
+              <button
+                type="submit"
+                name="image_url"
+                class="image_button"
+                style="
+                  background: url(/static/img/crown.png);
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  border: none;
+                  height: 50%;
+                  width: 50%;
+                  background-position: 50% 50%;
+                "
+                value="4"
+              >
+            </div>
+          </form>
+        </div>
+        <h5>
+          <a>Face tracking and decoration</a>
+        </h5>
       </div>
 
-      
       <div
         doz_type="grid"
         doz_grid="4"
