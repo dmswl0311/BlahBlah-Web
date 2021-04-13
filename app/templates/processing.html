@@ -58,36 +58,35 @@
       }
 
       .doz_row {
-        height: 30%;
+        height: 40%;
         display: flex;
         justify-content: center;
       }
 
-      .col-dz {
-        margin: 10px;
-      }
-
-      .doz_row h5 {
-        font-family: "Quicksand";
-        font-size: 14px;
+      .doz_row img {
+        height: 100%;
+        margin-right: 30px;
       }
 
       .doz_row a {
         text-decoration-line: none;
         color: black;
       }
+
       .doz_row a:hover {
         color: grey;
       }
 
-      .image-wrapper {
-        background: white;
+      .col-dz {
+        margin: 10px;
       }
-      .image-wrapper img {
-        mix-blend-mode: luminosity;
-      }
-      .image-wrapper img:hover {
-        mix-blend-mode: normal;
+
+      .menu {
+        display: block;
+        text-align: center;
+        padding: 25px;
+        padding-left: 70px;
+        padding-right: 70px;
       }
 
       .section_bg_color {
@@ -111,7 +110,17 @@
         background-color: #383838;
       }
     </style>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('html, body').animate({
+        scrollTop: $('#destination').offset().top
+      }, 'fast'); //slow
+    });
+  </script>
   </head>
+
   <body>
     <div style="width: 100%; float: none">
       <div
@@ -151,101 +160,49 @@
       </div>
     </div>
 
-    <div class="text-table">
+    <div id="destination" class="text-table">
       <div>
-        <h3 style="text-align: center; font-size: 30px">EXAMPLES</h3>
+        <h3 style="text-align: center; font-size: 30px">Face tracking and decoration</h3>
       </div>
     </div>
 
     <div doz_type="row" doz_grid="12" class="doz_row">
-      <div
-        doz_type="grid"
-        doz_grid="4"
-        class="col-dz"
-        style="display: inline-block; text-align: center"
-      >
-        <a href="{% url 'blurring' %}">
-          <div class="image-wrapper">
+      <img
+        src="{% url 'video_image' %}"
+        style="display: inline-block"
+        alt=""
+        height="600"
+      />
+      <div>
+        <div class="menu">
+          <a
+            class="btn btn_41f676797b96d btn-default"
+            href=""
+            style="margin: 0 -1px -1px 0; border-radius: px; height: 30px"
+            >Dyecoration</a
+          >
+        </div>
+        <hr size="1" color="#F2F2F2" />
+        <div class="menu">
+          <a style="margin: 0 -1px -1px 0; border-radius: px" href="">
             <img
-              id="img_w20210411dd9067df91e5d"
-              src="/static/img/blurring.png"
-              style="
-                visibility: visible;
-                display: block;
-                width: auto;
-                margin: auto;
-                height: 80%;
-              "
-              class="org_image"
+              src="/static/img/recoding.png"
               alt=""
-            />
-          </div>
-        </a>
-        <h5><a href="{% url 'blurring' %}">Face tracking and blurring</a></h5>
-      </div>
-
-      
-      <div
-        doz_type="grid"
-        doz_grid="4"
-        class="col-dz"
-        style="display: inline-block; text-align: center"
-      >
-        <a href="{% url 'decoration' %}">
-          <div class="image-wrapper">
+              style="height: 25px; margin: auto"
+          /></a>
+        </div>
+        <hr size="1" color="#F2F2F2" />
+        <div class="menu">
+          <a style="margin: 0 -1px -1px 0; border-radius: px" href="">
             <img
-              id="img_w20210411dd9067df91e5d"
-              src="/static/img/decoration.png"
-              style="
-                visibility: visible;
-                display: block;
-                width: auto;
-                margin: auto;
-                height: 80%;
-              "
-              class="org_image"
+              src="/static/img/capture.png"
               alt=""
-            />
-          </div>
-        </a>
-        <form action="{% url 'decoration' %}" method="get">
-          <br><br>
-          <button type="submit" name="image_url" value="img/smile.png">기쁨</button>
-          <button type="submit" name="image_url" value="img/sad.png">슬픔</button>
-          <button type="submit" name="image_url" value="img/heart.png">하트</button>
-          <button type="submit" name="image_url" value="img/birthday.png">생일</button>
-          <button type="submit" name="image_url" value="img/crown.png">왕관</button>
-      </form>
-        <h5><a href="{% url 'decoration' %}">Face tracking and decoration</a></h5>
-      </div>
-
-      
-      <div
-        doz_type="grid"
-        doz_grid="4"
-        class="col-dz"
-        style="display: inline-block; text-align: center"
-      >
-        <a href="">
-          <div class="image-wrapper">
-            <img
-              id="img_w20210411dd9067df91e5d"
-              src="/static/img/processing.png"
-              style="
-                visibility: visible;
-                display: block;
-                width: auto;
-                margin: auto;
-                height: 80%;
-              "
-              class="org_image"
-              alt=""
-            />
-          </div>
-        </a>
-        <h5><a href="">Image post-processing</a></h5>
+              style="height: 30px; margin: auto"
+          /></a>
+        </div>
       </div>
     </div>
+
     <div
       class="section_bg_color"
       style="background-color: rgba(247, 247, 247, 1)"
