@@ -167,12 +167,37 @@
     </div>
 
     <div doz_type="row" doz_grid="12" class="doz_row">
+      {%for s in urls%}
+      {%if "1" in s%}
       <img
-        src="{% url 'video_image' %}"
+        src="{% url 'video_image_smile' %}"
         style="display: inline-block"
         alt=""
         height="600"
       />
+      {%elif "2" in s%}
+      <img
+        src="{% url 'video_image_sad' %}"
+        style="display: inline-block"
+        alt=""
+        height="600"
+      />
+      {%elif "3" in s%}
+      <img
+        src="{% url 'video_image_birthday' %}"
+        style="display: inline-block"
+        alt=""
+        height="600"
+      />
+      {%elif "4" in s%}
+      <img
+        src="{% url 'video_image_crown' %}"
+        style="display: inline-block"
+        alt=""
+        height="600"
+      />
+      {%endif%}
+      {%endfor%}
       <div>
         <div class="menu">
           <a

@@ -12,7 +12,10 @@ urlpatterns = [
     path('',views.index,name='index'),
     # path('<int:pk>/', views.posting, name='posting'),
     path('video_feed', views.video_feed, name='video_feed'),
-    path('video_image', views.video_image, name='video_image'),
+    path('video_image_smile', views.video_image_smile, name='video_image_smile'),
+    path('video_image_sad', views.video_image_sad, name='video_image_sad'),
+    path('video_image_birthday', views.video_image_birthday, name='video_image_birthday'),
+    path('video_image_crown', views.video_image_crown, name='video_image_crown'),
     path('decoration/', views.decoration, name='decoration'),
     path('blurring/', views.blurring, name='blurring'),
 ]
