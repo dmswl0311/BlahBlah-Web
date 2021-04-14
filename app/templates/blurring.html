@@ -1,6 +1,10 @@
 <html>
   <head>
     <title>BlahBlah</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- 화면 캡쳐 CDN -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
     <style>
       @import url("//vendor-cdn.imweb.me/css/jalnan.css");
       @import url(http://fonts.googleapis.com/css?family=Varela+Round);
@@ -194,12 +198,14 @@
     </div>
 
     <div doz_type="row" doz_grid="12" class="doz_row">
+      <div id="capture">
       <img
         src="{% url 'video_feed' %}"
         style="display: inline-block"
         alt=""
         height="600"
       />
+      </div>
       <div>
         <div class="menu">
           <a
@@ -220,16 +226,19 @@
         </div>
         <hr size="1" color="#F2F2F2" />
         <div class="menu">
-          <a style="margin: 0 -1px -1px 0; border-radius: px" href="">
+          <button>
+            <a href="{% url 'video_capture' %}" class="button">캡쳐</a>
+          </button>
+          <!-- <a style="margin: 0 -1px -1px 0; border-radius: px" href="">
             <img
               src="/static/img/capture.png"
-              alt=""
+              alt=""  
+              class="button"
               style="height: 30px; margin: auto"
-          /></a>
+          /></a> -->
         </div>
       </div>
     </div>
-
     <div
       class="section_bg_color"
       style="background-color: rgba(247, 247, 247, 1)"
@@ -261,5 +270,7 @@
         <p style="margin-top: 10px">ⓒ HuStar. 2021. All rights reserved.</p>
       </div>
     </div>
+
+
   </body>
 </html>

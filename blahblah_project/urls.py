@@ -14,6 +14,7 @@ urlpatterns = [
     path('video_image_crown', views.video_image_crown, name='video_image_crown'),
     path('video_collection', views.video_collection, name='video_collection'),
     path('video_app', views.video_app, name='video_app'),
+    path('video_capture', views.video_capture, name='video_capture'),
     path('decoration/', views.decoration, name='decoration'),
     path('blurring/', views.blurring, name='blurring'),
     path('collection/', views.collection, name='collection'),

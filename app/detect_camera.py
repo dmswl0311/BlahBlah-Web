@@ -15,6 +15,7 @@ from os import listdir
 from os.path import isfile, join
 from time import sleep
 import time
+import datetime
 
 data_path = os.path.join(settings.BASE_DIR,'app/faces/')
 onlyfiles = [f for f in listdir(data_path) if isfile(join(data_path,f))]
@@ -109,6 +110,16 @@ def face_detector(img, size = 0.5):
 
     return img,roi
 
+
+global a # frame
+a=0
+
+def Do():
+    now = datetime.datetime.now().strftime("%d_%H-%M-%S")
+    # print("a(frame) 값: ",a)
+    # print(str(os.path.join(settings.BASE_DIR,'./capture/')))
+    cv2.imwrite(str(os.path.join(settings.BASE_DIR,'./capture/'))+str(now)+".jpg", a)
+
 class VideoCamera2(object):
     def __init__(self):
         self.webcam = cv2.VideoCapture(0)
@@ -117,12 +128,14 @@ class VideoCamera2(object):
         self.webcam.release()
 
     def get_frame(self):
-        ret, frame = self.webcam.read()
+        global a
 
+        ret, frame = self.webcam.read()
+    
         if not ret:
             print("Could not read frame")
             exit()
-            
+
         face, confidence = cv.detect_face(frame)
 
         try:
@@ -149,6 +162,7 @@ class VideoCamera2(object):
                         roi = frame[startY:endY, startX:endX] # 관심영역 지정
                         roi = cv2.GaussianBlur(roi, (29, 29), 10) # 블러(모자이크) 처리
                         frame[startY:endY, startX:endX] = roi 
+                a=frame
             else:
                 image_url2=cv2.imread(os.path.join(settings.BASE_DIR,'img/noface.PNG'),-1)
                 frame = colletion_overlay(frame, image_url2, (150, 400))
