@@ -14,7 +14,7 @@
         text-decoration-line: none;
       }
 
-      .logo_title a {
+      .fixed_transform {
         font-family: Jalnan;
         font-size: 24px;
         letter-spacing: 0px;
@@ -22,11 +22,27 @@
         font-style: normal;
         color: #fff;
         text-decoration-line: none;
+
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 20px;
+        padding-bottom: 10px;
       }
 
-      #s202104119f94cc82d02aa {
-        display: flex;
-        justify-content: center;
+      .user_register {
+        font-family: "Quicksand";
+        font-weight: bold;
+        font-size: 18px;
+        letter-spacing: 0px;
+        font-style: normal;
+        color: #fff;
+        text-decoration-line: none;
+
+        position: absolute;
+        right: 0.1%;
         padding-left: 30px;
         padding-right: 30px;
         padding-top: 20px;
@@ -111,16 +127,22 @@
       }
     </style>
 
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('html, body').animate({
-        scrollTop: $('#destination').offset().top
-      }, 'fast'); //slow
-    });
-  </script>
+    <script
+      type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("html, body").animate(
+          {
+            scrollTop: $("#destination").offset().top,
+          },
+          "fast"
+        ); //slow
+      });
+    </script>
   </head>
-  
+
   <body>
     <div style="width: 100%; float: none">
       <div
@@ -136,6 +158,9 @@
         <div data-type="section-wrap" id="s202104119f94cc82d02aa">
           <div class="logo_title">
             <a class="fixed_transform" href="/">BlahBlah</a>
+            <a class="user_register" href="{% url 'collection' %}"
+              >User register</a
+            >
           </div>
         </div>
         <div class="op" style="height: 100%">
@@ -162,7 +187,9 @@
 
     <div id="destination" class="text-table">
       <div>
-        <h3 style="text-align: center; font-size: 30px">Face tracking and blurring</h3>
+        <h3 style="text-align: center; font-size: 30px">
+          Face tracking and blurring
+        </h3>
       </div>
     </div>
 
