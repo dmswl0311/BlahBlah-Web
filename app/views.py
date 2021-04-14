@@ -42,7 +42,7 @@ def video_image_crown(request):
 
 def video_collection(request):
     # faces에 있는 이미지 삭제 후 colletion 실행
-    [os.remove(f) for f in glob.glob(os.path.join(settings.BASE_DIR,'app/faces/*.png'))]
+    [os.remove(f) for f in glob.glob(os.path.join(settings.BASE_DIR,'app/faces/*.jpg'))]
     return StreamingHttpResponse(gen(VideoCollection()),content_type='multipart/x-mixed-replace; boundary=frame')
 
 def collection(request):
