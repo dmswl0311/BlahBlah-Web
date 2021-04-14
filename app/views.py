@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http.response import StreamingHttpResponse
 # from app.camera import VideoCamera,VideoCameraImage,VideoCameraImage_Sad,VideoCameraImage_Birthday,VideoCameraImage_Crown
-from app.detect_camera import VideoCamera2,VideoCameraImageSmile,VideoCameraImageSad,VideoCameraImageBirthday,VideoCameraImageCrown
+from app.detect_camera import VideoCamera2,VideoCameraImageSmile,VideoCameraImageSad,VideoCameraImageBirthday,VideoCameraImageCrown,VideoCollection
 from tensorflow.keras.models import load_model
 from pathlib import Path
 
@@ -35,3 +35,9 @@ def video_image_birthday(request):
 
 def video_image_crown(request):
 	return StreamingHttpResponse(gen(VideoCameraImageCrown()),content_type='multipart/x-mixed-replace; boundary=frame')
+
+def video_collection(request):
+    return StreamingHttpResponse(gen(VideoCollection()),content_type='multipart/x-mixed-replace; boundary=frame')
+
+def collection(request):
+    return render(request,'collection.html')

@@ -336,3 +336,50 @@ class VideoCameraImageCrown(object):
         ret,jpeg=cv2.imencode('.jpg',frame)
         return jpeg.tobytes()
 
+sample_num = 0    
+captured_num = 0
+
+class VideoCollection(object):
+    def __init__(self):
+        self.webcam = cv2.VideoCapture(0)
+
+    def __del__(self):
+        self.webcam.release()
+        
+    def get_frame(self):
+        global sample_num
+        global captured_num
+        # sample_num = 0    
+        # captured_num = 0
+
+        ret, frame = self.webcam.read()
+        # sample_num = sample_num + 1
+        sample_num = sample_num + 1
+        print("sample_num= ",sample_num)
+        if not ret:
+            print("Could not read frame")
+            exit()
+            
+        face, confidence = cv.detect_face(frame)
+
+        # loop through detected faces
+        for idx, f in enumerate(face):
+                
+            (startX, startY) = f[0], f[1]
+            (endX, endY) = f[2], f[3]
+
+            if sample_num % 8  == 0:
+                # captured_num = captured_num + 1
+                captured_num = captured_num + 1
+                print(captured_num)
+                print("captured_num= ",captured_num)
+                face_in_img = frame[startY:endY, startX:endX, :]
+                face_in_img = cv2.cvtColor(face_in_img, cv2.COLOR_BGR2GRAY)
+                
+                cv2.imwrite('app/faces/user'+str(captured_num)+'.jpg', face_in_img)
+                cv2.putText(face_in_img, str(captured_num), (50,50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
+
+            cv2.rectangle(frame, (startX,startY), (endX,endY), (0,0,255), 2)
+
+        ret,jpeg=cv2.imencode('.jpg',frame)
+        return jpeg.tobytes()
