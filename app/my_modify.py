@@ -48,6 +48,8 @@ def mModify():
         flag = '1'
     elif f2 == '.avi':
         flag = '2'
+    elif f2 == '.mp4':
+        flag = '3'
     now = datetime.datetime.now().strftime("_%d_%H-%M-%S")
     if len(str(root.filename)) < 1:
         print("File error")
@@ -82,23 +84,31 @@ def mModify():
                 else:
                     roi = frame[startY:endY, startX:endX] # 관심영역 지정
                     roi = cv2.GaussianBlur(roi, (0, 0), 3) # 블러(모자이크) 처리
-                    frame[startY:endY, startX:endX] = roi 
+                    frame[startY:endY, startX:endX] = roi
+            cv2.imshow("modify",frame)
             cv2.imwrite(f1 + str(now) + ".png", frame)
         except:
             print("Face Not Found")
             cv2.putText(frame, "Face Not Found", (250, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 2)
             cv2.imwrite(f1 + str(now) + ".png", frame)
            
-    elif flag == '2':
+    elif flag == '2' or flag == '3':
         print("Flag 2")
-        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        #fourcc = cv2.VideoWriter_fourcc(*'XVID')
         webcam = cv2.VideoCapture(str(root.filename))
       
         if not webcam.isOpened():
             print("Could not open webcam")
             exit()
             #####
-        video = cv2.VideoWriter(f1 + str(now) + ".avi", fourcc, 20.0, (640, 480))
+        if flag == '2':
+            fourcc = cv2.VideoWriter_fourcc(*'XVID')
+            video = cv2.VideoWriter(f1 + str(now) + ".avi", fourcc, 20.0, (640, 480))
+            print("11111111111111111111111111111111111111111111111111111111111")
+        elif flag == '3':
+            fourcc = cv2.VideoWriter_fourcc(*'MPEG')
+            video = cv2.VideoWriter(f1 + str(now) + ".MP4", fourcc, 20.0, (2160, 3840))
+            print("2222222222222222222222222222222222222222222222222222222222")
         while webcam.isOpened():
             status, frame = webcam.read()
             
@@ -107,7 +117,7 @@ def mModify():
                 return
             
             face, confidence = cv.detect_face(frame)
-            
+           
             try:
                 print("Try 2")
                 # loop through detected faces
