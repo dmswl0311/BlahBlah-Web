@@ -77,9 +77,9 @@ def mModify():
 
                 if confidence > 70:
                     cv2.rectangle(frame, (startX,startY), (endX,endY), (0,0,255), 2)
-                    Y = startY - 10 if startY - 10 > 10 else startY + 10
-                    text = str(confidence)+'% Confidence it is target'
-                    cv2.putText(frame, text, (startX,Y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
+                    #Y = startY - 10 if startY - 10 > 10 else startY + 10
+                    #text = str(confidence)+'% Confidence it is target'
+                    #cv2.putText(frame, text, (startX,Y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
 
                 else:
                     roi = frame[startY:endY, startX:endX] # 관심영역 지정
@@ -134,9 +134,9 @@ def mModify():
 
                     if confidence > 70:
                         cv2.rectangle(frame, (startX,startY), (endX,endY), (0,0,255), 2)
-                        Y = startY - 10 if startY - 10 > 10 else startY + 10
-                        text = str(confidence)+'% Confidence it is target'
-                        cv2.putText(frame, text, (startX,Y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
+                        #Y = startY - 10 if startY - 10 > 10 else startY + 10
+                        #text = str(confidence)+'% Confidence it is target'
+                        #cv2.putText(frame, text, (startX,Y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
 
                     else:
                         roi = frame[startY:endY, startX:endX] # 관심영역 지정
