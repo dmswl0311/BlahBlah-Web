@@ -50,7 +50,7 @@ def mModify():
         flag = '2'
     elif f2 == '.mp4':
         flag = '3'
-    now = datetime.datetime.now().strftime("_%d_%H-%M-%S")
+    now = datetime.datetime.now().strftime("-%d-%H-%M-%S")
     if len(str(root.filename)) < 1:
         print("File error")
         return
@@ -94,28 +94,27 @@ def mModify():
            
     elif flag == '2' or flag == '3':
         print("Flag 2")
-        #fourcc = cv2.VideoWriter_fourcc(*'XVID')
         webcam = cv2.VideoCapture(str(root.filename))
-      
+        SetCodec = False
         if not webcam.isOpened():
             print("Could not open webcam")
             exit()
             #####
-        if flag == '2':
-            fourcc = cv2.VideoWriter_fourcc(*'XVID')
-            video = cv2.VideoWriter(f1 + str(now) + ".avi", fourcc, 20.0, (640, 480))
-            print("11111111111111111111111111111111111111111111111111111111111")
-        elif flag == '3':
-            fourcc = cv2.VideoWriter_fourcc(*'MPEG')
-            video = cv2.VideoWriter(f1 + str(now) + ".MP4", fourcc, 20.0, (2160, 3840))
-            print("2222222222222222222222222222222222222222222222222222222222")
+     
         while webcam.isOpened():
             status, frame = webcam.read()
-            
             if not status:
                 video.release()
                 return
-            
+            if SetCodec == False:
+                if flag == '2':
+                    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+                    video = cv2.VideoWriter(f1 + str(now) + ".avi", fourcc, 20.0, (frame.shape[1],frame.shape[0]))
+                    SetCodec = True
+                elif flag == '3':
+                    fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+                    video = cv2.VideoWriter(f1 + str(now) + ".mp4", fourcc, 20.0, (frame.shape[1], frame.shape[0]))
+                    SetCodec = True
             face, confidence = cv.detect_face(frame)
            
             try:
@@ -143,6 +142,7 @@ def mModify():
                         roi = frame[startY:endY, startX:endX] # 관심영역 지정
                         roi = cv2.GaussianBlur(roi, (29, 29), 10) # 블러(모자이크) 처리
                         frame[startY:endY, startX:endX] = roi 
+                        
                 print("Write 2")
                 video.write(frame)
             except:
