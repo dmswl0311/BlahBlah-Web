@@ -83,7 +83,7 @@ def mModify():
 
                 else:
                     roi = frame[startY:endY, startX:endX] # 관심영역 지정
-                    roi = cv2.GaussianBlur(roi, (0, 0), 3) # 블러(모자이크) 처리
+                    roi = cv2.GaussianBlur(roi, (29, 29), 10) # 블러(모자이크) 처리
                     frame[startY:endY, startX:endX] = roi
             cv2.imshow("modify",frame)
             cv2.imwrite(f1 + str(now) + ".png", frame)
@@ -141,7 +141,7 @@ def mModify():
 
                     else:
                         roi = frame[startY:endY, startX:endX] # 관심영역 지정
-                        roi = cv2.GaussianBlur(roi, (0, 0), 3) # 블러(모자이크) 처리
+                        roi = cv2.GaussianBlur(roi, (29, 29), 10) # 블러(모자이크) 처리
                         frame[startY:endY, startX:endX] = roi 
                 print("Write 2")
                 video.write(frame)

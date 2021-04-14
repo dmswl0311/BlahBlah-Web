@@ -143,7 +143,7 @@ class VideoCamera2(object):
 
                 else:
                     roi = frame[startY:endY, startX:endX] # 관심영역 지정
-                    roi = cv2.GaussianBlur(roi, (0, 0), 3) # 블러(모자이크) 처리
+                    roi = cv2.GaussianBlur(roi, (29, 29), 10) # 블러(모자이크) 처리
                     frame[startY:endY, startX:endX] = roi 
         except:
             cv2.putText(frame, "Face Not Found", (250, 450), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 2)
