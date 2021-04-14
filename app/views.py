@@ -3,7 +3,11 @@ from django.http.response import StreamingHttpResponse
 # from app.camera import VideoCamera,VideoCameraImage,VideoCameraImage_Sad,VideoCameraImage_Birthday,VideoCameraImage_Crown
 from app.detect_camera import VideoCamera2,VideoCameraImageSmile,VideoCameraImageSad,VideoCameraImageBirthday,VideoCameraImageCrown,VideoCollection
 from tensorflow.keras.models import load_model
+from django.conf import settings
 from pathlib import Path
+import glob
+import os 
+from app.my_modify import mModify
 
 def index(request):
     return render(request, 'blog.html')
@@ -37,7 +41,16 @@ def video_image_crown(request):
 	return StreamingHttpResponse(gen(VideoCameraImageCrown()),content_type='multipart/x-mixed-replace; boundary=frame')
 
 def video_collection(request):
+    # faces에 있는 이미지 삭제 후 colletion 실행
+    [os.remove(f) for f in glob.glob(os.path.join(settings.BASE_DIR,'app/faces/*.png'))]
     return StreamingHttpResponse(gen(VideoCollection()),content_type='multipart/x-mixed-replace; boundary=frame')
 
 def collection(request):
     return render(request,'collection.html')
+
+def my_modify(request):
+    mModify()
+    return render(request,'processing.html')
+
+def processing(request):
+    return render(request,'processing.html')
