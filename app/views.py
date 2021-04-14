@@ -7,6 +7,7 @@ from django.conf import settings
 from pathlib import Path
 import glob
 import os 
+from app.my_modify import mModify
 
 def index(request):
     return render(request, 'blog.html')
@@ -46,3 +47,10 @@ def video_collection(request):
 
 def collection(request):
     return render(request,'collection.html')
+
+def my_modify(request):
+    mModify()
+    return render(request,'processing.html')
+
+def processing(request):
+    return render(request,'processing.html')

@@ -16,6 +16,8 @@ urlpatterns = [
     path('decoration/', views.decoration, name='decoration'),
     path('blurring/', views.blurring, name='blurring'),
     path('collection/', views.collection, name='collection'),
+    path('processing/', views.processing, name='processing'),
+    path("my_modify/",views.my_modify, name="my_modify"),
 ]
 
 # 이미지 URL 설정
