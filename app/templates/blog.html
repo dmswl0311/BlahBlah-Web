@@ -201,83 +201,82 @@
       <div
         doz_type="grid"
         doz_grid="4"
+        id="col-box"
         class="col-dz"
-        style="display: inline-block; width: 400px; text-align: center"
+        style="display: inline-block; min-width: 400px; max-width: 400px; text-align: center;"
       >
-        <div class="image-wrapper" id="button-box">
-          <form
-            class="image-wrapper"
-            action="{% url 'decoration' %}"
-            style="height: 100%"
-            method="get"
-          >
-            <div style="display: block">
-              <button
-                type="submit"
-                name="image_url"
-                class="image_button"
-                style="
-                  background: url(/static/img/smile.png);
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  border: none;
-                  height: 50%;
-                  width: 50%;
-                  background-position: 50% 50%;
-                "
-                value="1"
-              >
-              <button
-                type="submit"
-                name="image_url"
-                class="image_button"
-                style="
-                  background: url(/static/img/sad.png);
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  border: none;
-                  height: 50%;
-                  width: 50%;
-                  background-position: 50% 50%;
-                "
-                value="2"
-              >
-            </div>
+        <form
+          class="image-wrapper"
+          action="{% url 'decoration' %}"
+          style="height: 80%;"
+          method="get"
+        >
+          <div style="display: block">
+            <button
+              type="submit"
+              name="image_url"
+              class="image_button"
+              style="
+                background: url(/static/img/smile.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                border: none;
+                height: 50%;
+                width: 50%;
+                background-position: 50% 50%;
+              "
+              value="1"
+            >
+            <button
+              type="submit"
+              name="image_url"
+              class="image_button"
+              style="
+                background: url(/static/img/sad.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                border: none;
+                height: 50%;
+                width: 50%;
+                background-position: 50% 50%;
+              "
+              value="2"
+            >
+          </div>
 
-            <div style="display: block">
-              <button
-                type="submit"
-                name="image_url"
-                class="image_button"
-                style="
-                  background: url(/static/img/birthday.png);
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  border: none;
-                  height: 50%;
-                  width: 50%;
-                  background-position: 50% 50%;
-                "
-                value="3"
-              >
-              <button
-                type="submit"
-                name="image_url"
-                class="image_button"
-                style="
-                  background: url(/static/img/crown.png);
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                  border: none;
-                  height: 50%;
-                  width: 50%;
-                  background-position: 50% 50%;
-                "
-                value="4"
-              >
-            </div>
-          </form>
-        </div>
+          <div style="display: block">
+            <button
+              type="submit"
+              name="image_url"
+              class="image_button"
+              style="
+                background: url(/static/img/birthday.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                border: none;
+                height: 50%;
+                width: 50%;
+                background-position: 50% 50%;
+              "
+              value="3"
+            >
+            <button
+              type="submit"
+              name="image_url"
+              class="image_button"
+              style="
+                background: url(/static/img/crown.png);
+                background-repeat: no-repeat;
+                background-size: cover;
+                border: none;
+                height: 50%;
+                width: 50%;
+                background-position: 50% 50%;
+              "
+              value="4"
+            >
+          </div>
+        </form>
         <h5>
           <a>Face tracking and decoration</a>
         </h5>
