@@ -1,0 +1,265 @@
+<html>
+  <head>
+    <title>BlahBlah</title>
+    <style>
+      @import url("//vendor-cdn.imweb.me/css/jalnan.css");
+      @import url(http://fonts.googleapis.com/css?family=Varela+Round);
+      @import url(http://fonts.googleapis.com/css?family=Quicksand);
+
+      body {
+        margin: 0px;
+      }
+
+      a {
+        text-decoration-line: none;
+      }
+
+      .fixed_transform {
+        font-family: Jalnan;
+        font-size: 24px;
+        letter-spacing: 0px;
+        font-weight: bold;
+        font-style: normal;
+        color: #fff;
+        text-decoration-line: none;
+
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+      }
+
+      .user_register {
+        font-family: "Quicksand";
+        font-weight: bold;
+        font-size: 18px;
+        letter-spacing: 0px;
+        font-style: normal;
+        color: #fff;
+        text-decoration-line: none;
+
+        position: absolute;
+        right: 0.1%;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+      }
+
+      .op {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      ._op h1 {
+        font-family: "Varela Round";
+        font-weight: lighter;
+        color: #fff;
+      }
+
+      ._op h5 {
+        font-family: "Quicksand";
+        font-weight: lighter;
+        color: #fff;
+      }
+
+      .text-table h3 {
+        font-family: "Quicksand";
+        font-weight: lighter;
+        margin: 80px;
+      }
+
+      .doz_row {
+        height: 40%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .doz_row img {
+        height: 100%;
+        margin-right: 30px;
+      }
+
+      .doz_row a {
+        text-decoration-line: none;
+        color: black;
+      }
+
+      .doz_row a:hover {
+        color: grey;
+      }
+
+      .col-dz {
+        margin: 10px;
+      }
+
+      .menu {
+        display: block;
+        text-align: center;
+        padding: 25px;
+        padding-left: 70px;
+        padding-right: 70px;
+      }
+
+      .section_bg_color {
+        margin-top: 80px;
+        margin-bottop: 0px;
+        padding: 80px;
+      }
+
+      .section_bg_color h3 {
+        font-family: "Quicksand";
+        font-weight: lighter;
+        margin: 0px;
+      }
+
+      .footer-section {
+        margin: 0px;
+        color: #ffffff;
+        font-size: 12px;
+        text-align: center;
+        padding: 40px;
+        background-color: #383838;
+      }
+    </style>
+
+    <script
+      type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+    ></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("html, body").animate(
+          {
+            scrollTop: $("#destination").offset().top,
+          },
+          "fast"
+        ); //slow
+      });
+    </script>
+  </head>
+
+  <body>
+    <div style="width: 100%; float: none">
+      <div
+        style="
+          height: 50%;
+          background-image: url(/static/img/header.jpg);
+          background-color: #dddddd;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: 50% 50%;
+        "
+      >
+        <div data-type="section-wrap" id="s202104119f94cc82d02aa">
+          <div class="logo_title">
+            <a class="fixed_transform" href="/">BlahBlah</a>
+            <a class="user_register" href="{% url 'collection' %}"
+              >User register</a
+            >
+          </div>
+        </div>
+        <div class="op" style="height: 100%">
+          <div class="_op" style="position: relative; z-index: 11">
+            <h1 style="text-align: center; font-size: 50px; margin: 0px">
+              <strong>This demo provides</strong><br /><strong
+                >face tracking and blurring.</strong
+              >
+            </h1>
+            <h5
+              style="
+                text-align: center;
+                font-size: 20px;
+                margin-top: 10px;
+                margin-bottom: 50px;
+              "
+            >
+              Camera permissions are required.
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="destination" class="text-table">
+      <div>
+        <h3 style="text-align: center; font-size: 30px">
+          Mobile Cam Face tracking and blurring
+        </h3>
+      </div>
+    </div>
+
+    <div doz_type="row" doz_grid="12" class="doz_row">
+      <img
+        src="{% url 'video_app' %}"
+        style="display: inline-block"
+        alt=""
+        height="600"
+      />
+      <div>
+        <div class="menu">
+          <a
+            class="btn btn_41f676797b96d btn-default"
+            href=""
+            style="margin: 0 -1px -1px 0; border-radius: px; height: 30px"
+            >Blurring</a
+          >
+        </div>
+        <hr size="1" color="#F2F2F2" />
+        <div class="menu">
+          <a style="margin: 0 -1px -1px 0; border-radius: px" href="">
+            <img
+              src="/static/img/recoding.png"
+              alt=""
+              style="height: 25px; margin: auto"
+          /></a>
+        </div>
+        <hr size="1" color="#F2F2F2" />
+        <div class="menu">
+          <a style="margin: 0 -1px -1px 0; border-radius: px" href="">
+            <img
+              src="/static/img/capture.png"
+              alt=""
+              style="height: 30px; margin: auto"
+          /></a>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="section_bg_color"
+      style="background-color: rgba(247, 247, 247, 1)"
+    >
+      <div>
+        <h3 style="text-align: center; font-size: 30px">DOCS</h3>
+      </div>
+
+      <p style="text-align: center; line-height: 2; margin-top: 60px">
+        <span style="font-size: 20px">Source code</span>
+      </p>
+
+      <p style="text-align: center">
+        <span style="font-size: 13px"
+          >This demo is open source, and is hosted on
+          <a
+            href="https://github.com/Hyunstagram/BlahBlah.git"
+            rel="noopener noreferrer"
+            target="_blank"
+            ><span style="color: rgb(210, 189, 243)">GitHub</span></a
+          >.</span
+        >
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <div class="custom-text-info _text_editor fr-view">
+        <p>BlahBlah</p>
+        <p style="margin-top: 10px">ⓒ HuStar. 2021. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>

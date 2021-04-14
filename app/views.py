@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http.response import StreamingHttpResponse
 # from app.camera import VideoCamera,VideoCameraImage,VideoCameraImage_Sad,VideoCameraImage_Birthday,VideoCameraImage_Crown
-from app.detect_camera import VideoCamera2,VideoCameraImageSmile,VideoCameraImageSad,VideoCameraImageBirthday,VideoCameraImageCrown,VideoCollection
+from app.detect_camera import VideoCamera2,VideoCameraImageSmile,VideoCameraImageSad,VideoCameraImageBirthday,VideoCameraImageCrown,VideoCollection,AppVideoCamera
 from tensorflow.keras.models import load_model
 from django.conf import settings
 from pathlib import Path
@@ -54,3 +54,9 @@ def my_modify(request):
 
 def processing(request):
     return render(request,'processing.html')
+
+def App_processing(request):
+    return render(request,'App_processing.html')
+
+def video_app(request):
+	return StreamingHttpResponse(gen(AppVideoCamera()),content_type='multipart/x-mixed-replace; boundary=frame')

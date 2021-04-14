@@ -13,11 +13,13 @@ urlpatterns = [
     path('video_image_birthday', views.video_image_birthday, name='video_image_birthday'),
     path('video_image_crown', views.video_image_crown, name='video_image_crown'),
     path('video_collection', views.video_collection, name='video_collection'),
+    path('video_app', views.video_app, name='video_app'),
     path('decoration/', views.decoration, name='decoration'),
     path('blurring/', views.blurring, name='blurring'),
     path('collection/', views.collection, name='collection'),
     path('processing/', views.processing, name='processing'),
     path("my_modify/",views.my_modify, name="my_modify"),
+    path("App_processing/",views.App_processing, name="App_processing"),
 ]
 
 # 이미지 URL 설정
