@@ -14,7 +14,7 @@
         text-decoration-line: none;
       }
 
-      .logo_title a {
+      .fixed_transform {
         font-family: Jalnan;
         font-size: 24px;
         letter-spacing: 0px;
@@ -22,11 +22,27 @@
         font-style: normal;
         color: #fff;
         text-decoration-line: none;
+        
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 20px;
+        padding-bottom: 10px;
       }
 
-      #s202104119f94cc82d02aa {
-        display: flex;
-        justify-content: center;
+      .user_register {
+        font-family: "Quicksand";
+        font-weight: bold;
+        font-size: 18px;
+        letter-spacing: 0px;
+        font-style: normal;
+        color: #fff;
+        text-decoration-line: none;
+
+        position: absolute;
+        right: 0.1%;
         padding-left: 30px;
         padding-right: 30px;
         padding-top: 20px;
@@ -69,7 +85,7 @@
 
       .doz_row h5 {
         font-family: "Quicksand";
-        font-size: 14px;
+        font-size: 18px;
       }
 
       .doz_row a {
@@ -141,11 +157,12 @@
         <div data-type="section-wrap" id="s202104119f94cc82d02aa">
           <div class="logo_title">
             <a class="fixed_transform" href="/">BlahBlah</a>
+            <a class="user_register" href="{% url 'collection' %}">User register</a>
           </div>
         </div>
         <div class="op" style="height: 100%">
           <div class="_op" style="position: relative; z-index: 11">
-            <h1 style="text-align: center; font-size: 50px; margin: 0px">
+            <h1 style="text-align: center; font-size: 50px; margin: 0px; margin-top: 50px;">
               <strong>This demo provides</strong><br /><strong
                 >face tracking and blurring.</strong
               >
@@ -167,7 +184,7 @@
 
     <div class="text-table">
       <div>
-        <h3 style="text-align: center; font-size: 30px">EXAMPLES</h3>
+        <h3 style="text-align: center; font-size: 30px">DEMO</h3>
       </div>
     </div>
 
@@ -321,7 +338,7 @@
       </p>
 
       <p style="text-align: center">
-        <span style="font-size: 13px"
+        <span style="font-size: 14px"
           >This demo is open source, and is hosted on
           <a
             href="https://github.com/Hyunstagram/BlahBlah.git"

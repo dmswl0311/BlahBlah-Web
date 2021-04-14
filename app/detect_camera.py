@@ -13,6 +13,7 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from pathlib import Path
 from os import listdir
 from os.path import isfile, join
+from time import sleep
 
 data_path = os.path.join(settings.BASE_DIR,'app/faces/')
 onlyfiles = [f for f in listdir(data_path) if isfile(join(data_path,f))]
@@ -338,6 +339,9 @@ class VideoCameraImageCrown(object):
 
 sample_num = 0    
 captured_num = 0
+face_num=0
+
+# Face Colletion Class ====================================
 
 class VideoCollection(object):
     def __init__(self):
@@ -345,41 +349,78 @@ class VideoCollection(object):
 
     def __del__(self):
         self.webcam.release()
-        
+
     def get_frame(self):
         global sample_num
         global captured_num
+        global face_num
         # sample_num = 0    
         # captured_num = 0
 
         ret, frame = self.webcam.read()
         # sample_num = sample_num + 1
         sample_num = sample_num + 1
-        print("sample_num= ",sample_num)
         if not ret:
             print("Could not read frame")
             exit()
             
         face, confidence = cv.detect_face(frame)
 
-        # loop through detected faces
-        for idx, f in enumerate(face):
-                
-            (startX, startY) = f[0], f[1]
-            (endX, endY) = f[2], f[3]
+        if len(confidence)==1:
+            # loop through detected faces
+            for idx, f in enumerate(face):
+                        
+                (startX, startY) = f[0], f[1]
+                (endX, endY) = f[2], f[3]
 
-            if sample_num % 8  == 0:
-                # captured_num = captured_num + 1
-                captured_num = captured_num + 1
-                print(captured_num)
-                print("captured_num= ",captured_num)
-                face_in_img = frame[startY:endY, startX:endX, :]
-                face_in_img = cv2.cvtColor(face_in_img, cv2.COLOR_BGR2GRAY)
-                
-                cv2.imwrite('app/faces/user'+str(captured_num)+'.jpg', face_in_img)
-                cv2.putText(face_in_img, str(captured_num), (50,50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
+                if sample_num % 8  == 0:
+                    # captured_num = captured_num + 1
+                    captured_num = captured_num + 1
+                    print("captured_num= ",captured_num)
+                    face_in_img = frame[startY:endY, startX:endX, :]
+                    face_in_img = cv2.cvtColor(face_in_img, cv2.COLOR_BGR2GRAY)
+                        
+                    cv2.imwrite('app/faces/user'+str(captured_num)+'.jpg', face_in_img)
 
-            cv2.rectangle(frame, (startX,startY), (endX,endY), (0,0,255), 2)
+                # 100장 학습
+                if captured_num==10:
+                    # cv2.putText(frame, "colletion complete!", (20,20), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 2)
+                    raise StopIteration
+                else:
+                    cv2.rectangle(frame, (startX,startY), (endX,endY), (0,0,255), 2)
+                    cv2.putText(frame, str(captured_num+1), (20,30), cv2.FONT_HERSHEY_PLAIN, 1, (255,255,255), 2)
+
+        elif len(confidence)>1:
+            image_url=cv2.imread(os.path.join(settings.BASE_DIR,'img/overface.PNG'),-1)
+            frame = colletion_overlay(frame, image_url, (150, 400))
+        else:
+            image_url2=cv2.imread(os.path.join(settings.BASE_DIR,'img/noface.PNG'),-1)
+            frame = colletion_overlay(frame, image_url2, (150, 400))
+            pass
 
         ret,jpeg=cv2.imencode('.jpg',frame)
         return jpeg.tobytes()
+
+
+def colletion_overlay(src ,overlay ,pos=(0,0) ,scale=1):
+    """
+    :param src: Input Color Background Image
+    :param overlay: transparent Image (BGRA)
+    :param pos:  position where the image to be blit.
+    :param scale : scale factor of transparent image.
+    :return: Resultant Image
+    """
+
+    h, w, _ = overlay.shape  # Size of foreground
+    rows, cols, _ = src.shape  # Size of background Image
+    
+    y, x = pos[0], pos[1]   
+
+    #loop over all pixels and apply the blending equation
+    for i in range(h):
+        for j in range(w):
+            if x + i >= rows or y + j >= cols:
+                continue
+            alpha = float(overlay[i][j][3] / 255.0) # read the alpha channel 
+            src[x + i][y + j] = alpha*overlay[i][j][:3] + (1 - alpha) * src[x + i][y + j]
+    return src
