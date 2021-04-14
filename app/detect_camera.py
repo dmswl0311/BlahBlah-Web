@@ -13,8 +13,23 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from pathlib import Path
 from os import listdir
 from os.path import isfile, join
+import getpass
 
-data_path = os.path.join(settings.BASE_DIR,'app/faces/')
+username = getpass.getuser()
+a = os.path.join("C://Users", username,"Desktop/faces")
+b = os.path.join("C://Users", username,"Desktop/faces/")
+
+def createFolder(directory):
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+            Img = cv2.imread(os.path.join(settings.BASE_DIR,'img/white.png'), -1)
+            cv2.imwrite(os.path.join(a , 'white.png'), Img)
+    except OSError:
+        print ('Error: Creating directory. ' +  directory)
+createFolder(a)
+
+data_path = b
 onlyfiles = [f for f in listdir(data_path) if isfile(join(data_path,f))]
 
 # 이모지 붙일 때, 이미지 경로
@@ -376,7 +391,7 @@ class VideoCollection(object):
                 face_in_img = frame[startY:endY, startX:endX, :]
                 face_in_img = cv2.cvtColor(face_in_img, cv2.COLOR_BGR2GRAY)
                 
-                cv2.imwrite('app/faces/user'+str(captured_num)+'.jpg', face_in_img)
+                cv2.imwrite(os.path.join(a, str(captured_num) + '.jpg'), face_in_img)
                 cv2.putText(face_in_img, str(captured_num), (50,50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
 
             cv2.rectangle(frame, (startX,startY), (endX,endY), (0,0,255), 2)

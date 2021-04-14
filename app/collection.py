@@ -1,5 +1,6 @@
-import cv2
+import cv2, os
 import cvlib as cv
+import getpass
 
 # open webcam (웹캠 열기)
 webcam = cv2.VideoCapture(0)
@@ -27,6 +28,11 @@ while webcam.isOpened():
     
     print(face)
     print(confidence)
+    
+
+    username = getpass.getuser()
+    a = os.path.join("C://Users", username,"Desktop/faces")
+    
  
     # loop through detected faces
     for idx, f in enumerate(face):
@@ -39,7 +45,7 @@ while webcam.isOpened():
             captured_num = captured_num + 1
             face_in_img = frame[startY:endY, startX:endX, :]
             face_in_img = cv2.cvtColor(face_in_img, cv2.COLOR_BGR2GRAY)
-            cv2.imwrite('./faces/user'+str(captured_num)+'.jpg', face_in_img)
+            cv2.imwrite(os.path.join(a, str(captured_num) + '.jpg'), face_in_img)
             cv2.putText(face_in_img, str(captured_num), (50,50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,255,0), 2)
  
  
