@@ -10,4 +10,6 @@ pip install tensorflow
 pip install opencv-python
 pip install imutils
 pip install cvlib
+pip install python-tk
+
  ```
