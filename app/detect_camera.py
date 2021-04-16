@@ -413,6 +413,8 @@ class VideoCollection(object):
                     face_in_img = cv2.cvtColor(face_in_img, cv2.COLOR_BGR2GRAY)
                         
                     cv2.imwrite('app/faces/user'+str(captured_num)+'.jpg', face_in_img)
+                    face_in_img_flip = cv2.flip(face_in_img, 1)
+                    cv2.imwrite('app/faces/user'+str(captured_num+100)+'.jpg', face_in_img_flip)
 
                 # 100장 학습
                 if captured_num==100:
